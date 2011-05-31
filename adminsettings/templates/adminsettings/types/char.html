@@ -1,5 +1,8 @@
-<label for="id_username" class="required">{{ setting.name }}:</label>
-<input id="id_username" type="text" name="username" value="{{ setting.db_value }}" />
+<label for="{{ setting.html_name }}" class="required">{{ setting.name }}:</label>
+<input id="{{ setting.html_name }}" type="text" name="{{ setting.html_name }}" value="{% if setting.db_value %}{{ setting.db_value }}{% endif %}" />
 {% if setting.help_text %}
     <p class="help">{{ setting.help_text }}</p>
+{% endif %}
+{% if setting.default and setting.display_default %}
+    <p class="help"><strong>Default:</strong> {{ setting.default }}</p>
 {% endif %}

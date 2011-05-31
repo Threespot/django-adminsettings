@@ -4,19 +4,25 @@ from django.template.loader import render_to_string
 class BaseSetting(object):
     name = None
     default = None
+    display_default = False
     template = None
     weight = None
     db_value = None
     help_text = None
 
     def __init__(self, db_value):
-        self.db_value = db_value
+        if db_value != self.default:
+            self.db_value = db_value
 
     def render(self):
         return render_to_string(self.template, { 'setting': self })
 
     def to_python(self):
         return self.value
+
+    @classmethod
+    def html_name(cls):
+        return cls.key().lower()
 
     @classmethod
     def key(cls):
