@@ -15,8 +15,7 @@
         {% for setting in admin_settings %}
             <div class="form-row">
                 <div>
-                    {{ setting.instance.name }}:
-                    {{ setting.value }}
+                    {% include setting.instance.template with obj=setting only %}
                 </div>
             </div>
         {% endfor %}
