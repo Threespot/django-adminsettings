@@ -11,14 +11,16 @@
 
 {% block content %}
 <div id="content-main">
-    <fieldset class="module">
-        {% for setting in admin_settings %}
-            <div class="form-row">
-                <div>
-                    {% include setting.instance.template with obj=setting only %}
+    <form>
+        <fieldset class="module aligned">
+            {% for setting in admin_settings %}
+                <div class="form-row">
+                    <div>
+                        {% include setting.template with setting=setting %}
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
-    </fieldset>
+            {% endfor %}
+        </fieldset>
+    </form>
 </div>
 {% endblock %}

@@ -1,0 +1,5 @@
+<label for="id_username" class="required">{{ setting.name }}:</label>
+<textarea id="id_username" name="username">{{ setting.db_value }}</textarea>
+{% if setting.help_text %}
+    <p class="help">{{ setting.help_text }}</p>
+{% endif %}
