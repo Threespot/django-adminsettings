@@ -7,6 +7,7 @@ class BaseSetting(object):
     template = None
     weight = None
     db_value = None
+    help_text = None
 
     def __init__(self, db_value):
         self.db_value = db_value
