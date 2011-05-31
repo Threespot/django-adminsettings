@@ -12,7 +12,7 @@ class BaseSetting(object):
         self.db_value = db_value
 
     def render(self):
-        return render_to_string(self.template, { 'obj': self })
+        return render_to_string(self.template, { 'setting': self })
 
     def to_python(self):
         return self.value
@@ -37,11 +37,11 @@ class StringSetting(BaseSetting):
 
 
 class CharSetting(BaseSetting):
-    template = 'adminsettings/char.html'
+    template = 'adminsettings/types/char.html'
 
 
 class TextSetting(CharSetting):
-    template = 'adminsettings/textarea.html'
+    template = 'adminsettings/types/textarea.html'
 
 
 class MultiSetting(BaseSetting):
@@ -52,12 +52,12 @@ class MultiSetting(BaseSetting):
 
 
 class SelectSetting(MultiSetting):
-    template = 'adminsettings/select.html'
+    template = 'adminsettings/types/select.html'
 
 
 class RadioSetting(MultiSetting):
-    template = 'adminsettings/radio.html'
+    template = 'adminsettings/types/radio.html'
 
 
 class CheckboxSetting(MultiSetting):
-    template = 'adminsettings/checkbox.html'
+    template = 'adminsettings/types/checkbox.html'
