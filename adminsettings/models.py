@@ -9,8 +9,4 @@ class AdminSetting(models.Model):
     and value, which is stored in the database as a pickled Python object.
     """
     name = models.CharField(max_length=128)
-    value = PickledObjectfield()
-
-    @property
-    def setting_name(self):
-        return self.name.replace(' ', '_').upper()
+    value = PickledObjectField()
