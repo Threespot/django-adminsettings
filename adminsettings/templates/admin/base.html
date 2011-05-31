@@ -1,0 +1,4 @@
+{% block userlinks %}
+    <a href="{% url 'adminsettings:settings' %}">Settings</a> /
+    {{ block.super }}
+{% endblock %}
