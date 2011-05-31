@@ -1,0 +1,25 @@
+{% extends "admin/base_site.html" %}
+
+{% load adminmedia %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/forms.css" />
+{% endblock %}
+
+{% block bodyclass %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <fieldset class="module">
+        {% for setting in admin_settings %}
+            <div class="form-row">
+                <div>
+                    {{ setting.instance.name }}:
+                    {{ setting.value }}
+                </div>
+            </div>
+        {% endfor %}
+    </fieldset>
+</div>
+{% endblock %}
