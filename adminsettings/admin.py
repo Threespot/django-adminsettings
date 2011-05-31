@@ -28,7 +28,6 @@ class SettingsAdminSite(AdminSite):
 
     @never_cache
     def settings(self, request):
-        import pdb; pdb.set_trace()
         admin_settings = []
         for setting in settings._obj_registry:
             value = settings._registry[setting.key()]
