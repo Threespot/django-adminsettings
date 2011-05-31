@@ -31,14 +31,10 @@ class SettingsAdminSite(AdminSite):
         admin_settings = []
         for setting in settings._obj_registry:
             value = settings._registry[setting.key()]
-            admin_settings.append({
-                'class': setting,
-                'instance': setting(value),
-                'value': value
-            })
+            admin_settings.append(setting(value))
         return TemplateResponse(request, ['adminsettings/index.html'], {
             'title': 'Settings',
-            'admin_settings': admin_settings
+            'admin_settings': sorted(admin_settings, key=lambda s: s.weight),
         })
 
 adminsettings_site = SettingsAdminSite('adminsettings')
