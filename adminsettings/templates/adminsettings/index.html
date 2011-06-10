@@ -11,7 +11,8 @@
 
 {% block content %}
 <div id="content-main">
-    <form>
+    <form action="" method="POST">
+        {% csrf_token %}
         <fieldset class="module aligned">
             {% for setting in admin_settings %}
                 <div class="form-row">
@@ -21,6 +22,9 @@
                 </div>
             {% endfor %}
         </fieldset>
+        <div class="submit-row">
+            <input type="submit" value="Save" class="default" name="_save">
+        </div>
     </form>
 </div>
 {% endblock %}
