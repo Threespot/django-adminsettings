@@ -21,10 +21,6 @@ class BaseSetting(object):
         return self.value
 
     @classmethod
-    def html_name(cls):
-        return cls.key().lower()
-
-    @classmethod
     def key(cls):
         ret = cls.name and cls.name or cls.__class__.__name__
         ret = re.sub('(.)([A-Z][a-z]\ +)', r'\1_\2', ret)
