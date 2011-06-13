@@ -15,11 +15,7 @@
         {% csrf_token %}
         <fieldset class="module aligned">
             {% for setting in admin_settings %}
-                <div class="form-row">
-                    <div>
-                        {% include setting.setting_object.template with setting=setting %}
-                    </div>
-                </div>
+                {% include setting.setting_object.template with setting=setting %}
             {% endfor %}
         </fieldset>
         <div class="submit-row">

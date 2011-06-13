@@ -1,0 +1,20 @@
+<div class="form-row {{ setting.setting_object.html_class }}">
+    <div>
+
+        {% block label %}
+            <label for="{{ setting.setting_object.key }}">{{ setting.setting_object.name }}:</label>
+        {% endblock label %}
+
+        {% block field %}{% endblock field %}
+
+        {% block helptext %}
+            {% if setting.setting_object.help_text %}
+                <p class="help">{{ setting.setting_object.help_text }}</p>
+            {% endif %}
+            {% if setting.setting_object.default and setting.setting_object.display_default %}
+                <p class="help"><strong>Default:</strong> {{ setting.setting_object.default }}</p>
+            {% endif %}
+        {% endblock helptext %}
+
+    </div>
+</div>

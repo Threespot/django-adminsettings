@@ -1,8 +1,5 @@
-<label for="{{ setting.setting_object.html_name }}" class="required">{{ setting.setting_object.name }}:</label>
-<input id="{{ setting.setting_object.html_name }}" type="text" name="{{ setting.setting_object.html_name }}" value="{% if setting.model_object %}{{ setting.setting_object.value }}{% endif %}" />
-{% if setting.setting_object.help_text %}
-    <p class="help">{{ setting.setting_object.help_text }}</p>
-{% endif %}
-{% if setting.setting_object.default and setting.setting_object.display_default %}
-    <p class="help"><strong>Default:</strong> {{ setting.setting_object.default }}</p>
-{% endif %}
+{% extends "adminsettings/types/base.html" %}
+
+{% block field %}
+    <input id="{{ setting.setting_object.key }}" type="text" name="{{ setting.setting_object.key }}" value="{% if setting.model_object %}{{ setting.setting_object.value }}{% endif %}" />
+{% endblock field %}

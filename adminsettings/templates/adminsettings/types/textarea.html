@@ -1,8 +1,5 @@
-<label for="{{ setting.setting_object.html_name }}" class="required">{{ setting.setting_object.name }}:</label>
-<textarea id="{{ setting.setting_object.html_name }}" name="{{ setting.html_name }}">{% if setting.model_object %}{{ setting.setting_object.value }}{% endif %}</textarea>
-{% if setting.help_text %}
-    <p class="help">{{ setting.help_text }}</p>
-{% endif %}
-{% if setting.default and setting.display_default %}
-    <p class="help"><strong>Default:</strong> {{ setting.default }}</p>
-{% endif %}
+{% extends "adminsettings/types/base.html" %}
+
+{% block field %}
+    <textarea id="{{ setting.setting_object.key }}" name="{{ setting.key }}" cols="40" rows="10">{% if setting.model_object %}{{ setting.setting_object.value }}{% endif %}</textarea>
+{% endblock field %}
