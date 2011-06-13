@@ -1,5 +1,5 @@
-<label for="{{ setting.html_name }}" class="required">{{ setting.name }}:</label>
-<textarea id="{{ setting.html_name }}" name="{{ setting.html_name }}">{% if setting.db_value %}{{ setting.db_value }}{% endif %}</textarea>
+<label for="{{ setting.setting_object.html_name }}" class="required">{{ setting.setting_object.name }}:</label>
+<textarea id="{{ setting.setting_object.html_name }}" name="{{ setting.html_name }}">{% if setting.model_object %}{{ setting.setting_object.value }}{% endif %}</textarea>
 {% if setting.help_text %}
     <p class="help">{{ setting.help_text }}</p>
 {% endif %}

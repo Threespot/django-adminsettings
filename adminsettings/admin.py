@@ -1,11 +1,14 @@
+from __future__ import with_statement
 from copy import copy
 from functools import update_wrapper
 
 from django.contrib.admin.sites import AdminSite
+from django.db import transaction
 from django.template.response import TemplateResponse
 from django.views.decorators.cache import never_cache
 
 from adminsettings.conf import settings
+from adminsettings.models import AdminSetting
 
 
 class SettingsAdminSite(AdminSite):
@@ -28,13 +31,17 @@ class SettingsAdminSite(AdminSite):
 
     @never_cache
     def settings(self, request):
-        admin_settings = []
-        for setting in settings._obj_registry:
-            value = settings._registry[setting.key()]
-            admin_settings.append(setting(value))
+
+        if request.method == 'POST':
+            with transaction.commit_on_success():
+                for key, value in settings._registry.iteritems():
+                    pass
+
+        admin_settings = [s[1] for s in sorted(settings._registry.iteritems(), \
+            key=lambda s: s[1].setting_object.weight)]
         return TemplateResponse(request, ['adminsettings/index.html'], {
             'title': 'Settings',
-            'admin_settings': sorted(admin_settings, key=lambda s: s.weight),
+            'admin_settings': admin_settings,
         })
 
 adminsettings_site = SettingsAdminSite('adminsettings')

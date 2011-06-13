@@ -22,7 +22,7 @@ class AdminSettingSite(object):
     def __iter__(self):
         return self._registry.__iter__()
 
-    def register(self, admin_setting, setting_cache=None):
+    def register(self, SettingClass, setting_cache=None):
         """
         Registers a given setting. If it has already been registered, this
         will raise AlreadyRegistered.
@@ -36,37 +36,38 @@ class AdminSettingSite(object):
             setting_cache = AdminSetting.objects.all()
 
         # Iterables containing setting objects can also be registered
-        if hasattr(admin_setting, '__iter__'):
-            for item in admin_setting:
+        if hasattr(SettingClass, '__iter__'):
+            for item in SettingClass:
                 self.register(item, setting_cache=setting_cache)
 
         else:
 
-            if admin_setting.key() in self._registry.keys():
+            if SettingClass.key() in self._registry.keys():
                 raise AlreadyRegistered('The setting %s has already been '
-                    'registered' % admin_setting.__name__)
+                    'registered' % SettingClass.__name__)
 
             try:
-                model_object = setting_cache.get(name=admin_setting.name)
-                value = SettingValue(model_object.value.value)
-                value.model_object = model_object
+                model_object = setting_cache.get(name=SettingClass.name)
+                setting_value = SettingValue(model_object.value)
+                setting_value.model_object = model_object
+                setting_value.setting_object = SettingClass(model_object.value)
             except AdminSetting.DoesNotExist:
-                value = SettingValue(admin_setting.default)
-                value.model_object = None
-            value.setting_object = admin_setting
+                setting_value = SettingValue(SettingClass.default)
+                setting_value.model_object = None
+                setting_value.setting_object = SettingClass(SettingClass.default)
 
-            self._registry[admin_setting.key()] = value
+            self._registry[SettingClass.key()] = setting_value
 
 
-    def unregister(self, admin_setting):
+    def unregister(self, SettingClass):
         """
         Unregisters a given setting. If it has not been registered, this will
         raise NotRegistered.
         """
-        if admin_setting.key() not in self._registry.keys:
+        if SettingClass.key() not in self._registry.keys:
             raise NotRegistered('The setting %s cannot be unregistered as it '
-                'has not been registered' % admin_setting.__name__)
-        del self._registry[admin_setting.key()]
+                'has not been registered' % SettingClass.__name__)
+        del self._registry[SettingClass.key()]
 
 
 settings = cache.get(CACHE_NAME)

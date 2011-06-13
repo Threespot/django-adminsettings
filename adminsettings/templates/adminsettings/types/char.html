@@ -1,8 +1,8 @@
-<label for="{{ setting.html_name }}" class="required">{{ setting.name }}:</label>
-<input id="{{ setting.html_name }}" type="text" name="{{ setting.html_name }}" value="{% if setting.db_value %}{{ setting.db_value }}{% endif %}" />
-{% if setting.help_text %}
-    <p class="help">{{ setting.help_text }}</p>
+<label for="{{ setting.setting_object.html_name }}" class="required">{{ setting.setting_object.name }}:</label>
+<input id="{{ setting.setting_object.html_name }}" type="text" name="{{ setting.setting_object.html_name }}" value="{% if setting.model_object %}{{ setting.setting_object.value }}{% endif %}" />
+{% if setting.setting_object.help_text %}
+    <p class="help">{{ setting.setting_object.help_text }}</p>
 {% endif %}
-{% if setting.default and setting.display_default %}
-    <p class="help"><strong>Default:</strong> {{ setting.default }}</p>
+{% if setting.setting_object.default and setting.setting_object.display_default %}
+    <p class="help"><strong>Default:</strong> {{ setting.setting_object.default }}</p>
 {% endif %}

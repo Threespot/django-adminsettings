@@ -29,8 +29,8 @@ class BaseSetting(object):
 
     @property
     def value(self):
-        if self.db_value:
-            return self.db_value
+        if hasattr(self.db_value, 'value'):
+            return self.db_value.value
         return self.default
 
 
