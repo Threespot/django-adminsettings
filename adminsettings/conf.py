@@ -47,16 +47,17 @@ class AdminSettingSite(object):
                     'registered' % SettingClass.__name__)
 
             try:
-                model_object = setting_cache.get(name=SettingClass.name)
-                setting_value = SettingValue(model_object.value)
-                setting_value.model_object = model_object
-                setting_value.setting_object = SettingClass(model_object.value)
+                model_object = setting_cache.get(name=SettingClass.key())
             except AdminSetting.DoesNotExist:
                 setting_value = SettingValue(SettingClass.default)
                 setting_value.model_object = None
                 setting_value.setting_object = SettingClass(SettingClass.default)
-
-            self._registry[SettingClass.key()] = setting_value
+            else:
+                setting_value = SettingValue(model_object)
+                setting_value.model_object = model_object
+                setting_value.setting_object = SettingClass(model_object.value)
+            finally:
+                self._registry[SettingClass.key()] = setting_value
 
 
     def unregister(self, SettingClass):
