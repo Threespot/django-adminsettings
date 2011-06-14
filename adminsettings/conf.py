@@ -53,7 +53,7 @@ class AdminSettingSite(object):
                 setting_value.model_object = None
                 setting_value.setting_object = SettingClass(SettingClass.default)
             else:
-                setting_value = SettingValue(model_object)
+                setting_value = SettingValue(model_object.value)
                 setting_value.model_object = model_object
                 setting_value.setting_object = SettingClass(model_object.value)
             finally:
