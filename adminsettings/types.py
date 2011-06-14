@@ -20,17 +20,19 @@ class BaseSetting(object):
     def to_python(self):
         return self.value
 
+    def is_null(self):
+        return False
+
     @classmethod
     def key(cls):
-        ret = cls.name and cls.name or cls.__class__.__name__
-        ret = re.sub('(.)([A-Z][a-z]\ +)', r'\1_\2', ret)
+        ret = re.sub('(.)([A-Z][a-z]\ +)', r'\1_\2', cls.name)
         ret = re.sub('([a-z0-9])([A-Z])', r'\1_\2', ret)
         return ret.replace(' ', '_').upper()
 
     @property
     def value(self):
-        if hasattr(self.db_value, 'value'):
-            return self.db_value.value
+        if self.is_null():
+            return self.db_value
         return self.default
 
 
@@ -38,12 +40,15 @@ class StringSetting(BaseSetting):
     def to_python(self):
         return str(self.value)
 
+    def is_null(self):
+        return self.db_value != ''
 
-class CharSetting(BaseSetting):
+
+class CharSetting(StringSetting):
     template = 'adminsettings/types/char.html'
 
 
-class TextSetting(CharSetting):
+class TextSetting(StringSetting):
     template = 'adminsettings/types/textarea.html'
 
 
